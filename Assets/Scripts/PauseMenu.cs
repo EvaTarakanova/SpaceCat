@@ -10,6 +10,9 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused = false;
 
+    public AudioSource musicSource;
+    private float originalVolume;
+
     public bool IsPaused()
     {
         return isPaused;
@@ -20,6 +23,11 @@ public class PauseMenu : MonoBehaviour
         // Выключаем меню паузы и затемнение при старте
         pauseMenu.SetActive(false);
         pauseOverlay.SetActive(false);
+        // Сохраняем оригинальную громкость
+        if (musicSource != null)
+        {
+            originalVolume = musicSource.volume;
+        }
     }
 
     void Update()
@@ -42,6 +50,12 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f; // Останавливаем время
         isPaused = true;
 
+        // Устанавливаем громкость музыки
+        if (musicSource != null)
+        {
+            musicSource.volume = originalVolume * 0.5f; // Понижаем громкость на 50%
+        }
+
         // Устанавливаем позицию меню паузы в центр камеры
         SetMenuPosition();
 
@@ -54,6 +68,12 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f; // Возобновляем время
         isPaused = false;
+
+        // Восстанавливаем громкость музыки
+        if (musicSource != null)
+        {
+            musicSource.volume = originalVolume; // Восстанавливаем оригинальную громкость
+        }
 
         // Отключаем меню паузы и затемнение
         pauseMenu.SetActive(false);
