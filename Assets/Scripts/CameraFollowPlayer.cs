@@ -4,16 +4,39 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
-    public GameObject playerObject;
-    public float lerpSpeed = 0.5f;
-    private Vector3 offset;
-    void Start()
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private string playerTag;
+    [SerializeField] private float movingSpeed;
+
+    private void Awake()
     {
-        offset = transform.position - playerObject.transform.position;
+        if(this.playerTransform == null)
+        {
+            if (this.playerTag == "")
+            {
+                this.playerTag = "Player";
+            }
+            this.playerTransform = GameObject.FindGameObjectWithTag(this.playerTag).transform;
+        }
+
+        this.transform.position = new Vector3()
+        {
+            x = this.playerTransform.position.x, y = this.playerTransform.position.y, z = this.playerTransform.position.z - 10
+        };
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, playerObject.transform.position + offset, lerpSpeed);
+        if (this.playerTransform)
+        {
+            Vector3 target = new Vector3()
+            {
+                x = this.playerTransform.position.x,
+                y = this.playerTransform.position.y,
+                z = this.playerTransform.position.z - 10
+            };
+            Vector3 pos = Vector3.Lerp(a: this.transform.position, b: target, t: this.movingSpeed * Time.deltaTime);
+            this.transform.position = pos;
+        }
     }
 }
