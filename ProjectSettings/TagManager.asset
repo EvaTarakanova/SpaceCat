@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TargetPosition
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Entities
     uniqueID: 13082237
+    locked: 0
+  - name: CanvasItem
+    uniqueID: 2664036277
     locked: 0
