@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class PuzzleManager : MonoBehaviour {
     public GameObject[] puzzlePieces; // ћассив всех пазлов
     public Transform[] targetPositions; // ћассив целевых позиций дл€ пазлов
-    private bool test = false;
+    //private bool test = false;
     private void OnEnable()
     {
         // Ќайти все целевые позиции с тегом "TargetPosition"
@@ -28,7 +28,7 @@ public class PuzzleManager : MonoBehaviour {
     {
 
         // ”бедитьс€, что количество целевых позиций соответствует количеству пазлов
-        if (puzzlePieces.Length > targetPositions.Length || test == false)
+        if (puzzlePieces.Length > targetPositions.Length)
         {
             Debug.LogError("Ќедостаточно целевых позиций дл€ всех пазлов!" + targetPositions.Length);
             return; // «авершаем выполнение, если не хватает позиций
